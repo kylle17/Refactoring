@@ -1,6 +1,7 @@
 # [ Excel Download ][ Delphi ] <br>
 
-- 설명 : 그리드에 있는 하기휴가 계획서 내용을 엑셀 파일로 출력하는 기능을 리팩토링 <br><br><br><br>
+- 설명 : 그리드에 있는 내용을 엑셀 파일로 출력하는 기능을 리팩토링 한다. <br>
+<br><br><br><br>
 
 
 
@@ -87,7 +88,7 @@ begin
   set_field_excel_start_end_cell();
 
   // 시트 이름 설정
-  sheet_name := '하기휴가 계획서';
+  sheet_name := '시트명';
   set_excel_sheet_name( sheet_name );
 
   // 엑셀에 데이터 출력
@@ -109,7 +110,7 @@ begin
   set_font();
 
   // 제목 설정
-  title := dept_name + '  하기휴가 계획서';
+  title := dept_name + '제목';
   set_cexcel_title( title);
 
   excel.Visible:= True;
@@ -277,7 +278,10 @@ begin
   space_row :=1; //row 공백
   printPage_max_row := 24;
 
-  생략...
+  excel_start_cell_1 := excel.WorkSheets[1].Cells[ start_row                                                               ,   start_col               ];
+  excel_end_cell_1   := excel.WorkSheets[1].Cells[ start_row - space_row + grid1_arr_row_length                            ,   grid1_arr_col_length    ];        
+  excel_start_cell_2 := excel.WorkSheets[1].Cells[ start_row + space_row + grid1_arr_row_length                            ,   start_col               ];
+  excel_end_cell_2   := excel.WorkSheets[1].Cells[ start_row + grid1_arr_row_length + grid2_arr_row_length                 ,   grid2_arr_col_length    ];
   
 end;
 ```
@@ -297,7 +301,7 @@ var
 begin
   생략...
 
-  sheet_name := '휴가 계획서';
+  sheet_name := '시트명';
   
   생략...
 end;  
@@ -398,7 +402,7 @@ end;
 
 ### 12. Cell 색 설정하기. <br>
 
-주말 , 공휴일은 다른 색으로 구분한다. <br>
+Cell 전체를 돌면서 색을 설정한다. <br>
 
 ```delphi
 procedure THB40010.Excel_module_class.set_color();
@@ -407,7 +411,16 @@ var
 begin
   printPage_max_row := 24;
   
-  생략...
+  For col := 1 to grid1_arr_col_length do
+  begin
+      { grid1 }
+        excel.WorkSheets[1].Cells[ 4 , col ].Interior.Color := $DDDBF8;
+        excel.WorkSheets[1].Cells[ 3 , col ].Interior.Color := $DDDBF8;
+      
+      { grid2 }
+        excel.WorkSheets[1].Cells[ grid1_arr_row_length+5 , col ].Interior.Color := $DDDBF8;
+        excel.WorkSheets[1].Cells[ grid1_arr_row_length+4 , col ].Interior.Color := $DDDBF8;
+  end;
 
 end;
 ```
@@ -443,7 +456,7 @@ var
 begin
   생략...
 
-  title := dept_name + '  하기휴가 계획서';
+  title := dept_name + '타이틀 명';
   
   생략...
 end; 
@@ -475,7 +488,7 @@ end;
 
 - 자주 사용하는 객체나 변수를 필드로 두고 사용하니 중복 코드가 줄었다. <br> 
 
-- naming 규칙을 체계적으로 정한다면 더 빨리 이해할 수 있는 코드가 될 것이다. <br>
+- naming 규칙을 체계적으로 정해서 더 이해하기 쉽게 만들기. <br>
 
 
 
