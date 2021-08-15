@@ -14,19 +14,20 @@
 탭 기능의 경우 현재 열린 탭이 있으면 해당 탭으로 이동하고 . <br>
 열린 탭이 없으면 탭을 생성한다. <br>
 
-- findMatchTabIndex() 함수에서 일치하는 탭이 있는지 검색한다. <br>
-- 일치하는 탭이 있으면 goTab() 함수에서 해당 탭으로 이동한다. <br>
-- 없으면 createTab() 함수에서 탭을 생성한다. <br>
 
 ```javascript
 function actTab( newTabId , newTabName, newTabUrl ){
-		if( findMatchTabIndex(newTabName) > -1 ){
-				goTab( metchTabIndex );
-		} else{
-				createTab( newTabId , newTabUrl , newTabName  );
-		};
+	if( findMatchTabIndex(newTabName) > -1 ){
+		goTab( metchTabIndex );
+	} else{
+		createTab( newTabId , newTabUrl , newTabName  );
+	};
 };
 ```
+
+- findMatchTabIndex() 함수에서 일치하는 탭이 있는지 검색한다. <br>
+- 일치하는 탭이 있으면 goTab() 함수에서 해당 탭으로 이동한다. <br>
+- 없으면 createTab() 함수에서 탭을 생성한다. <br>
 <br><br><br><br>
 
 
