@@ -203,15 +203,7 @@
      
 
 , 경상이익_WITH AS(
-      SELECT SUM(DECODE( 구분 , 계획 , 금액 , 0 )) 금액1 , SUM(  구분 , 실적 , 금액 , 0  )) 금액2
-        FROM (
-               SELECT 금액1 , 금액2 FROM 영업이익_WITH
-                UNION ALL
-               SELECT 금액1 , 금액2 FROM 영업외수익_WITH 
-                UNION ALL
-               SELECT (- 금액1) , (- 금액2) FROM 영업외비용_WITH                
-             )
-       GROUP BY 1 
+
 )  
 
         
@@ -271,7 +263,7 @@
         FROM 영업외비용_WITH
        UNION ALL        
       SELECT ' = 경상 이익' title, 금액1 계획 , 금액2 실적
-        FROM 경상이익_WITH
+        FROM 경상이익_WITH        
 
 ```
 <br><br><br><br>
@@ -291,8 +283,8 @@
 ![image](https://user-images.githubusercontent.com/54452587/129995251-bc0e2995-ae21-42c0-b6d1-68b3385751f9.png)<br><br>
 
 
-실행속도가 훨씬 빨라진 것을 확인할 수 있다. <br>
-WITH문을 단계별로 구성해서 보기에도 편하고 필요한 부분만 찾아볼 수 있다. <br>
+WITH문으로 캐싱하여 재사용하여 실행속도가 훨씬 빨라진 것을 확인할 수 있다. <br>
+단계별로 구성해서 보기에도 편하고 필요한 부분만 찾아볼 수 있다. <br>
 
 <br><br><br><br>
 
