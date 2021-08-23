@@ -1,4 +1,4 @@
-# [  탭 기능 JqxTabs  ][ Javascript ] <br><br>
+# [  탭 기능 리팩터링  ][ JqxTabs , Javascript ] <br><br>
 
 - 설명 : <br>
 
